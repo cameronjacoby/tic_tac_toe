@@ -1,3 +1,24 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <table class="game_board">
+      <tbody>
+        <% @game.moves.each_with_index do |move, index| %>
+          <% if index % @game.board_size == 0 %>
+            <% current_pos = index %>
+            <tr class="game_row">
+          <% end %>
+          <td class="game_col game_col_<%= @game.board_size %> board_pos_<%= index %>">
+            <%= image_tag "", class: "avatar add_opacity tmp_hidden" %>
+          </td>
+          <% if current_pos && index == current_pos + @game.board_size - 1 %>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
 <h1>Games#Show</h1>
 <h2>This is game # <%= @game.id %></h2>
 <h3>Board Size: <%= @game.board_size %></h3>
@@ -5,6 +26,7 @@
 <h3>Winner: <%= @game.winner %></h3>
 <hr>
 <h3>Players:</h3>
-<% @game.players.each do |player| %>
-  <h4><%= player.id %></h4>
+<% @game.players.each_with_index do |player, index| %>
+  <h4><%= player.id %><% if player == current_user %> - CURRENT USER - index <%= index %><% end %></h4>
+  <%= hidden_field_tag :player_index, index %>
 <% end %>
