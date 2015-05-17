@@ -15,6 +15,9 @@ $(function() {
     playerTurn = true;
     playerAvatar = "cupcake.jpg";
   }
+  else if (player === 1) {
+    playerAvatar = "doge.jpg";
+  }
 
   $('.game_col').on('mouseover', function() {
     if (playerTurn && !$(this).hasClass('filled')) {
