@@ -43,4 +43,5 @@ gem 'omniauth-facebook'
 
 # infrastructure
 gem 'figaro'
+gem 'pry'
 gem 'pry-rails'

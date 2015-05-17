@@ -158,6 +158,7 @@ DEPENDENCIES
   omniauth
   omniauth-facebook
   pg
+  pry
   pry-rails
   rails (= 4.1.6)
   sass-rails (~> 4.0.3)
