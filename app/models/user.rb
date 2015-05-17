@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
 
   has_many :plays
-  has_many :tic_tac_toe_games, through: :plays
-  has_many :games_won, class_name: 'TicTacToeGame'
+  has_many :games, through: :plays
+  has_many :games_won, class_name: 'Game'
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

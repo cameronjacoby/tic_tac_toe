@@ -1,4 +1,4 @@
-class TicTacToeGame < ActiveRecord::Base
+class Game < ActiveRecord::Base
 
   serialize :moves
 
