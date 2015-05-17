@@ -36,8 +36,11 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+# auth
 gem 'devise'
-gem 'figaro'
 gem 'omniauth'
 gem 'omniauth-facebook'
+
+# infrastructure
+gem 'figaro'
 gem 'pry-rails'

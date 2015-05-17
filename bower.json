@@ -1,0 +1,19 @@
+{
+  "name": "TicTacToe",
+  "version": "0.0.1",
+  "homepage": "https://github.com/cameronjacoby/tic_tac_toe",
+  "authors": [
+    "cameronjacoby <cameron.jacoby@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.4"
+  }
+}
