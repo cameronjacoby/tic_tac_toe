@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150517074943) do
+ActiveRecord::Schema.define(version: 20150517080801) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,9 +24,11 @@ ActiveRecord::Schema.define(version: 20150517074943) do
     t.integer  "user_id"
   end
 
+  add_index "games", ["user_id"], name: "index_games_on_user_id", using: :btree
+
   create_table "plays", force: true do |t|
     t.integer  "user_id"
-    t.integer  "tic_tac_toe_game_id"
+    t.integer  "game_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
