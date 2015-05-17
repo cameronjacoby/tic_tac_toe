@@ -26,7 +26,7 @@ class GamesController < ApplicationController
     player_index = params[:player_index].to_i
     player_avatar = params[:player_avatar]
     player = @game.players[player_index]
-    # player.plays.where(game: @game).first.update_attributes(avatar: player_avatar)
+    player.plays.where(game: @game).first.update_attributes(avatar: player_avatar)
     @game.moves[board_position] = player_index
     @game.save!
 

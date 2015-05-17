@@ -13,12 +13,12 @@ $(function() {
   // first player (index 0) gets to start
   if (player === 0) {
     playerTurn = true;
-    playerAvatar = "/assets/cupcake.jpg";
+    playerAvatar = "cupcake.jpg";
   }
 
   $('.game_col').on('mouseover', function() {
     if (playerTurn && !$(this).hasClass('filled')) {
-      $(this).children('.avatar').attr('src', playerAvatar);
+      $(this).children('.avatar').attr('src', "/assets/" + playerAvatar);
       $(this).children('.avatar').fadeIn('fast');
     }
   });
@@ -32,7 +32,7 @@ $(function() {
 
   $('.game_col').on('click', function() {
     if (playerTurn && !$(this).hasClass('filled')) {
-      $(this).children('.avatar').attr('src', playerAvatar);
+      $(this).children('.avatar').attr('src', "/assets/" + playerAvatar);
       $(this).children('.avatar').removeClass('add_opacity');
       $(this).children('.avatar').fadeIn('fast');
       $(this).addClass('filled');
