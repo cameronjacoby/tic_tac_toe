@@ -7,8 +7,8 @@
             <% current_pos = index %>
             <tr class="game_row">
           <% end %>
-          <td class="game_col game_col_<%= @game.board_size %> board_pos_<%= index %>">
-            <%= image_tag "", class: "avatar add_opacity tmp_hidden" %>
+          <td class="game_col game_col_<%= @game.board_size %> <%= move ? 'filled' : nil %>" data-board-pos="<%= index %>">
+            <%= image_tag "", class: "avatar #{move ? nil : 'add_opacity tmp_hidden'}" %>
           </td>
           <% if current_pos && index == current_pos + @game.board_size - 1 %>
             </tr>
@@ -21,6 +21,7 @@
 
 <h1>Games#Show</h1>
 <h2>This is game # <%= @game.id %></h2>
+<%= hidden_field_tag :game_id, @game.id %>
 <h3>Board Size: <%= @game.board_size %></h3>
 <h3>Moves: <%= @game.moves %></h3>
 <h3>Winner: <%= @game.winner %></h3>

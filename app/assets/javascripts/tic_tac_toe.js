@@ -5,22 +5,20 @@ $(function() {
     history.pushState('', document.title, window.location.pathname);
   }
 
-  var avatars = {
-    0: "/assets/cupcake.jpg",
-    1: "/assets/doge.jpg"
-  };
-
+  var gameId = $('#game_id').val();
   var player = parseInt($('#player_index').val());
   var playerTurn = false;
+  var playerAvatar;
 
   // first player (index 0) gets to start
   if (player === 0) {
     playerTurn = true;
+    playerAvatar = "/assets/cupcake.jpg";
   }
 
   $('.game_col').on('mouseover', function() {
     if (playerTurn && !$(this).hasClass('filled')) {
-      $(this).children('.avatar').attr('src', avatars[player]);
+      $(this).children('.avatar').attr('src', playerAvatar);
       $(this).children('.avatar').fadeIn('fast');
     }
   });
@@ -34,11 +32,24 @@ $(function() {
 
   $('.game_col').on('click', function() {
     if (playerTurn && !$(this).hasClass('filled')) {
-      $(this).children('.avatar').attr('src', avatars[player]);
+      $(this).children('.avatar').attr('src', playerAvatar);
       $(this).children('.avatar').removeClass('add_opacity');
       $(this).children('.avatar').fadeIn('fast');
       $(this).addClass('filled');
       playerTurn = false;
+      $.ajax({
+        url: "/games/" + gameId + "/play",
+        data: {
+          board_position: $(this).attr('data-board-pos'),
+          player_index: player,
+          player_avatar: playerAvatar
+        },
+        method: "PUT",
+        dataType: "json",
+        success: function(data) {
+          console.log(data);
+        }
+      });
     }
   });
 
