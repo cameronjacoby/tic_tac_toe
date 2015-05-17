@@ -10,6 +10,8 @@ class Game < ActiveRecord::Base
 
   DEFAULT_BOARD_SIZE = 3
 
+  scope :one_player, lambda { joins(:plays).group("games.id").having("count(*) = ?", 1) }
+
   def create_board
     self.moves = Array.new(board_size * board_size)
   end

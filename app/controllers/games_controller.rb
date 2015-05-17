@@ -3,8 +3,12 @@ class GamesController < ApplicationController
   before_action :set_game, only: [:show]
 
   def create
-    @game = Game.new(board_size: Game::DEFAULT_BOARD_SIZE)
-    @game.create_board
+    if Game.one_player.any?
+      @game = Game.one_player.first
+    else
+      @game = Game.new(board_size: Game::DEFAULT_BOARD_SIZE)
+      @game.create_board
+    end
     @game.players << current_user
     if @game.save
       redirect_to game_path(@game)
