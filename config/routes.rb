@@ -2,7 +2,9 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { omniauth_callbacks: 'callbacks' }
 
-  resources :games
-  root 'games#index'
+  resources :users, except: [:new, :create, :destroy]
+  resources :games, only: [:create, :show]
+  
+  root 'users#index'
 
 end
