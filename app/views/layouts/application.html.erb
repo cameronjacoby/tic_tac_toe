@@ -9,8 +9,18 @@
 <body>
 
   <div class="container">
-    <% if current_user %>
-      <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+    <p>
+      <%= link_to "New Game!", games_path, method: :post %>
+      <% if current_user %>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+      <% end %>
+    </p>
+    <% if flash[:notice] %>
+      <div class="alert alert-info" role="alert"><%= flash[:notice].html_safe %></div>
+    <% end %>
+    <% if flash[:error] %>
+      <div class="alert alert-danger" role="alert"><%= flash[:error].html_safe %></div>
     <% end %>
     <%= yield %>
   </div>

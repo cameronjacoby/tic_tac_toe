@@ -1,1 +1,10 @@
 <h1>Games#Show</h1>
+<h2>This is game # <%= @game.id %></h2>
+<h3>Board Size: <%= @game.board_size %></h3>
+<h3>Moves: <%= @game.moves %></h3>
+<h3>Winner: <%= @game.winner %></h3>
+<hr>
+<h3>Players:</h3>
+<% @game.players.each do |player| %>
+  <h4><%= player %></h4>
+<% end %>
