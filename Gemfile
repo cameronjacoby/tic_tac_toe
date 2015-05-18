@@ -41,10 +41,21 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
 
-# infrastructure
+# console
+group :development do
+  gem 'pry'
+  gem 'pry-rails'
+end
+
+# env variables
 gem 'figaro'
-gem 'pry'
-gem 'pry-rails'
 
 # socket
 gem 'websocket-rails'
+
+# testing
+group :development, :test do
+  gem 'factory_girl_rails'
+  gem 'faker'
+  gem 'rspec-rails'
+end
