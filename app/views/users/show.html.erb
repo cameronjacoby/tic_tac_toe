@@ -1,1 +1,11 @@
-<h1>Users#Show</h1>
+<div class="center">
+  <h2>Your Stats</h2>
+  <hr>
+  <p><strong>Games Played:</strong> <%= @user.games.count %></p>
+  <p><strong>Games Won:</strong> <%= @user.games_won.count %></p>
+  <% if @user.games.any? %>
+    <p><strong>Last Play:</strong> <%= last_play(@user) %></p>
+  <% end %>
+  <hr>
+  <%= link_to "Play Game!", games_path, class: "btn btn-lg btn-primary", method: :post %>
+</div>

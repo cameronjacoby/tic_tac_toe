@@ -9,7 +9,9 @@ class GamesController < ApplicationController
       @game = Game.new(board_size: Game::DEFAULT_BOARD_SIZE)
       @game.create_board
     end
-    @game.players << current_user
+    unless @game.players.include?(current_user)
+      @game.players << current_user
+    end
     if @game.save!
       redirect_to game_path(@game)
     else
@@ -25,27 +27,23 @@ class GamesController < ApplicationController
     board_position = params[:board_position].to_i
     player_index = params[:player_index].to_i
     player_avatar = params[:player_avatar]
-    player = @game.players.by_plays[player_index]
     
-    player.plays.where(game: @game).first.update_attributes(avatar: player_avatar)
+    player = @game.players.by_plays[player_index]
+    player.set_avatar!(player_avatar, @game)
     
     @game.moves[board_position] = player_index
     @game.save!
 
     # only check for winner if there are enough moves for there to be a winner
     if @game.moves.compact.count >= @game.board_size * 2 - 1
-      winner = @game.get_winner
-      if winner
-        @game.update_attributes(winner: winner)
+      winning_index = @game.get_winner
+      if winning_index
+        @game.update_attributes(winner: @game.players.by_plays[winning_index])
       end
     end
 
-    WebsocketRails[:tic_tac_toe].trigger(:play, { game: @game, last_player: player })
-
-    respond_to do |format|
-      format.html { render nothing: true }
-      format.json { render json: @game, status: :ok }
-    end
+    WebsocketRails[:tic_tac_toe].trigger(:play, { game_id: @game.id, winner: @game.winner, last_player: player_index, last_player_avatar: player_avatar, board_pos: board_position })
+    render nothing: true
   end
 
   private

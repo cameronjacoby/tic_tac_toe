@@ -16,6 +16,11 @@ class Game < ActiveRecord::Base
     self.moves = Array.new(board_size * board_size)
   end
 
+  def get_turn
+    # assume player 0 always goes first
+    moves.count(0) > moves.count(1) ? 1 : 0
+  end
+
   def get_winner
     player_indexes = moves.uniq
     top_left = 0
@@ -66,7 +71,7 @@ class Game < ActiveRecord::Base
       if current_pos <= ending_pos
         if moves[current_pos] == pl_index
           if current_pos == ending_pos
-            return players.by_plays[pl_index]
+            return pl_index
           else
             current_pos = increment_board_pos(bd_size, current_pos, direction)
             check_win(bd_size, pl_index, current_pos, ending_pos, direction)

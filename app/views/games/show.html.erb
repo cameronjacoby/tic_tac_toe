@@ -1,33 +1,56 @@
+<%= hidden_field_tag :game_id, @game.id %>
+
+<!-- order is important here b/c we make the assumption that the player who joined the game first is always index 0 -->
+<% @game.players.by_plays.each_with_index do |player, index| %>
+  <% if player == current_user %>
+    <%= hidden_field_tag :player_index, index %>
+  <% end %>
+<% end %>
+
+<% if @game.winner %>
+  <%= hidden_field_tag :winner_declared, true %>
+<% else %>
+  <%= hidden_field_tag :player_turn, @game.get_turn %>
+<% end %>
+
 <div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <table class="game_board">
-      <tbody>
-        <% @game.moves.each_with_index do |move, index| %>
-          <% if index % @game.board_size == 0 %>
-            <% current_pos = index %>
-            <tr class="game_row">
-          <% end %>
-          <td class="game_col game_col_<%= @game.board_size %> <%= move ? 'filled' : nil %>" data-board-pos="<%= index %>">
-            <%= image_tag move ? @game.players.by_plays[move].plays.where(game: @game).first.avatar : nil, class: "avatar #{move ? nil : 'add_opacity tmp_hidden'}" %>
-          </td>
-          <% if current_pos && index == current_pos + @game.board_size - 1 %>
-            </tr>
-          <% end %>
-        <% end %>
-      </tbody>
-    </table>
+  <div class="col-xs-12">
+    <% if current_user.get_avatar(@game) %>
+      <%= hidden_field_tag :player_avatar, current_user.get_avatar(@game) %>
+    <% else %>
+      <div class="avatar_choices center">
+        <%= image_tag "bitcoin.jpg" %>
+        <%= image_tag "cupcake.jpg" %>
+        <%= image_tag "dinosaur.jpg" %>
+        <%= image_tag "doge.jpg" %>
+        <%= image_tag "lobster.jpg" %>
+        <%= image_tag "starbucks.jpg" %>
+        <%= image_tag "tequila.jpg" %>
+        <%= image_tag "unicorn.jpg" %>
+      </div>
+    <% end %>
   </div>
 </div>
 
-<h1>Games#Show</h1>
-<h2>This is game # <%= @game.id %></h2>
-<%= hidden_field_tag :game_id, @game.id %>
-<h3>Board Size: <%= @game.board_size %></h3>
-<h3>Moves: <%= @game.moves %></h3>
-<h3>Winner: <%= @game.winner ? @game.winner.email : nil %></h3>
-<hr>
-<h3>Players:</h3>
-<!-- order is important here b/c we make the assumption that the player who joined the game first is always at index 0 -->
-<% @game.players.by_plays.each_with_index do |player, index| %>
-  <h4><%= player.email %><% if player == current_user %> - CURRENT USER - index <%= index %><%= hidden_field_tag :player_index, index %><% end %></h4>
-<% end %>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="board_container">
+      <table class="game_board">
+        <tbody>
+          <% @game.moves.each_with_index do |move, index| %>
+            <% if index % @game.board_size == 0 %>
+              <% current_pos = index %>
+              <tr class="game_row">
+            <% end %>
+            <td class="game_col game_col_<%= @game.board_size %> <%= move ? 'filled' : nil %>" data-board-pos="<%= index %>">
+              <%= image_tag move ? @game.players.by_plays[move].get_avatar(@game) : nil, class: "avatar #{move ? nil : 'add_opacity tmp_hidden'}" %>
+            </td>
+            <% if current_pos && index == current_pos + @game.board_size - 1 %>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,1 +1,19 @@
-<h1>Users#Index | Leaderboard</h1>
+<div class="center">
+  <h2>Leaderboard</h2>
+  <hr>
+  <% if @users.any? %>
+    <% @users.each do |user| %>
+      <p><%= user.email %>: <%= user.games_won.count %></p>
+    <% end %>
+  <% else %>
+    <p>No games yet!</p>
+  <% end %>
+  <hr>
+  <div>
+    <% if current_user %>
+      <%= link_to "Play Game!", games_path, class: "btn btn-lg btn-primary", method: :post %>
+    <% else %>
+      <%= link_to "Get Started!", new_user_registration_path, class: "btn btn-lg btn-primary" %>
+    <% end %>
+  </div>
+</div>
