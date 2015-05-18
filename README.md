@@ -1,11 +1,11 @@
-##Built With:
+###Built with:
 
 * Ruby
 * Rails 4.1.6
 * JQuery / AJAX
 * Websocket Rails
 
-##Steps to Run
+###Steps to Run:
 
 * git clone https://github.com/cameronjacoby/tic_tac_toe.git
 * cd tic_tac_toe
