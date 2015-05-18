@@ -45,3 +45,6 @@ gem 'omniauth-facebook'
 gem 'figaro'
 gem 'pry'
 gem 'pry-rails'
+
+# socket
+gem 'websocket-rails'
