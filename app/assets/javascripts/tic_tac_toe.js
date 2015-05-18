@@ -56,4 +56,12 @@ $(function() {
     }
   });
 
+  var dispatcher = new WebSocketRails('localhost:3000/websocket');
+  console.log(dispatcher);
+  var channel = dispatcher.subscribe('tic_tac_toe');
+  console.log(channel);
+  channel.bind('play', function(data) {
+    console.log('channel event received: ' + data.last_player.id);
+  });
+
 });

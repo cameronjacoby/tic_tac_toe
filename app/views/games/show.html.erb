@@ -8,7 +8,7 @@
             <tr class="game_row">
           <% end %>
           <td class="game_col game_col_<%= @game.board_size %> <%= move ? 'filled' : nil %>" data-board-pos="<%= index %>">
-            <%= image_tag move ? @game.players[move].plays.where(game: @game).first.avatar : nil, class: "avatar #{move ? nil : 'add_opacity tmp_hidden'}" %>
+            <%= image_tag move ? @game.players.by_plays[move].plays.where(game: @game).first.avatar : nil, class: "avatar #{move ? nil : 'add_opacity tmp_hidden'}" %>
           </td>
           <% if current_pos && index == current_pos + @game.board_size - 1 %>
             </tr>
@@ -28,6 +28,6 @@
 <hr>
 <h3>Players:</h3>
 <!-- order is important here b/c we make the assumption that the player who joined the game first is always at index 0 -->
-<% @game.players.joins(:plays).order('plays.created_at').each_with_index do |player, index| %>
+<% @game.players.by_plays.each_with_index do |player, index| %>
   <h4><%= player.email %><% if player == current_user %> - CURRENT USER - index <%= index %><%= hidden_field_tag :player_index, index %><% end %></h4>
 <% end %>

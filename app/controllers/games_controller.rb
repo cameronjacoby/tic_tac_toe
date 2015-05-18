@@ -25,8 +25,10 @@ class GamesController < ApplicationController
     board_position = params[:board_position].to_i
     player_index = params[:player_index].to_i
     player_avatar = params[:player_avatar]
-    player = @game.players[player_index]
+    player = @game.players.by_plays[player_index]
+    
     player.plays.where(game: @game).first.update_attributes(avatar: player_avatar)
+    
     @game.moves[board_position] = player_index
     @game.save!
 
@@ -38,9 +40,11 @@ class GamesController < ApplicationController
       end
     end
 
+    WebsocketRails[:tic_tac_toe].trigger(:play, { game: @game, last_player: player })
+
     respond_to do |format|
       format.html { render nothing: true }
-      format.json { render json: @game, include: :winner, status: :ok }
+      format.json { render json: @game, status: :ok }
     end
   end
 

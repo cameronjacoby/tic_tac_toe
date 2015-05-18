@@ -66,7 +66,7 @@ class Game < ActiveRecord::Base
       if current_pos <= ending_pos
         if moves[current_pos] == pl_index
           if current_pos == ending_pos
-            return players[pl_index]
+            return players.by_plays[pl_index]
           else
             current_pos = increment_board_pos(bd_size, current_pos, direction)
             check_win(bd_size, pl_index, current_pos, ending_pos, direction)
