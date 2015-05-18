@@ -92,6 +92,8 @@ $(function() {
       }
       if (data.winner) {
         winnerDeclared = true;
+        $('#confetti').css('z-index', '1');
+        $('#confetti').css('opacity', '1');
       }
     }
   });

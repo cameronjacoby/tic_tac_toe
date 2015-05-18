@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require bootstrap/dist/js/bootstrap
 //= require websocket_rails/main
+//= require confetti
 //= require_tree .

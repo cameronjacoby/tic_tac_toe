@@ -19,6 +19,9 @@ label {
 strong {
   font-weight: 600;
 }
+.navbar-default {
+  z-index: 2;
+}
 .btn-primary, .btn-primary[disabled], .btn-primary[disabled]:hover, .btn-primary.disabled, .btn-primary.disabled:hover {
   background-color: #ff0051;
   border-color: #e60049;
@@ -90,6 +93,15 @@ table.game_board {
     display: block;
     padding-top: 100%;
   }
+}
+#confetti{
+  height: 100%;
+  left: 0px;
+  opacity: 0;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: -1;
 }
 
 /* media queries */
